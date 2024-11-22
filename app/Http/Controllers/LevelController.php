@@ -44,7 +44,7 @@ class LevelController extends Controller
                 //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 // return $btn;
 
-                $btn = '<a href="' . url('/level/' . $level->id_level) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->id_level . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->id_level . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
 
@@ -163,6 +163,12 @@ class LevelController extends Controller
         }
     }
 
+    public function show_ajax(string $id) {
+        $level = LevelModel::find($id);
+
+        return view('level.show_ajax', ['level' => $level]);
+    }
+
     // 1. public function create_ajax()
     public function create_ajax()
     {
@@ -175,7 +181,7 @@ class LevelController extends Controller
         // cek apakah request berupa ajax
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kode_level' => 'required|string|min:3|unique:m_level,kode_level',
+                'kode_level' => 'required|string|min:2|unique:m_level,kode_level',
                 'nama_level' => 'required|string|max:100'
             ];
             // use Illuminate\Support\Facades\Validator;
