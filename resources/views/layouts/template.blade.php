@@ -35,18 +35,12 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ url('/') }}" class="brand-link">
-
-      {{-- @if (session()->has('profile_img_path'))
-      <img src="{{ asset('storage/' . session('profile_img_path')) }}" alt="Profile Picture"
-          class="brand-image img-circle elevation-3">
-      @else --}}
-
-      <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      {{-- @endif       --}}
-      <span class="brand-text font-weight-light">PWL - Starter Code</span>
-    </a>
-
+    <nav style="display: flex; justify-content: center; align-items: center; height: 56px; background-color: #E7E8EC;">
+      <a href="{{ url('/') }}" class="navbar-brand" style="display: flex; align-items: center;">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-height: 48px;">
+      </a>
+    </nav>
+    
     <!-- Sidebar -->
     @include('layouts.sidebar')
     <!-- /.sidebar -->
