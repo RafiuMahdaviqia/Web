@@ -30,7 +30,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning">
-                        <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>Apakah Anda ingin menghapus data seperti di bawah ini?
+                        <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
+                        Apakah Anda ingin menghapus data seperti di bawah ini?
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
@@ -39,7 +40,7 @@
                         </tr>
                         <tr>
                             <th class="text-right col-3">Username :</th>
-                            <td class="col-9">{{ $user->username_user }}</td>
+                            <td class="col-9">{{ $user->username }}</td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Nama :</th>
@@ -71,7 +72,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                tableUser.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

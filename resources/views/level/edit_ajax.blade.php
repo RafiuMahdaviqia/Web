@@ -9,7 +9,8 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger">
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>Data Level yang anda cari tidak ditemukan
+                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
+                    Data Level yang anda cari tidak ditemukan
                 </div>
                 <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
             </div>
@@ -51,7 +52,7 @@
             $("#form-edit").validate({
                 rules: {
                     kode_level: { required: true, minlength: 1 },
-                    nema_level: { required: true, minlength: 3 }
+                    nama_level: { required: true, minlength: 3 }
                 },
                 submitHandler: function(form) {
                     $.ajax({

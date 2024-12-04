@@ -12,7 +12,8 @@
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
@@ -27,7 +28,7 @@
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control"
-                            placeholder="Username">
+                            placeholder="username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -37,7 +38,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Password">
+                            placeholder="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -58,7 +59,6 @@
                         <!-- /.col -->
                     </div>
                 </form>
-                <a href="{{ url('register') }}" class="text-center">Belum punya akun</a>
             </div>
             <!-- /.card-body -->
         </div>
@@ -92,7 +92,7 @@
                     },
                     password: {
                         required: true,
-                        minlength: 6,
+                        minlength: 5,
                         maxlength: 20
                     }
                 },

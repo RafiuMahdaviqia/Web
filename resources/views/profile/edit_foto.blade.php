@@ -1,65 +1,64 @@
-@empty($level)
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+@empty($user)
+<div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
             <div class="modal-body">
                 <div class="alert alert-danger">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
-@else
-    <form action="{{ url('/level/' . $level->id_level . '/delete_ajax') }}" method="POST" id="form-delete-level">
+    @else
+    <form action="{{ url('/profile/' . session('id_user') . '/update_foto') }}" method="POST" id="form-edit"
+        enctype="multipart/form-data">
         @csrf
-        @method('DELETE')
+        @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Level</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                 <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Foto Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-warning">
-                        <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
-                        Apakah Anda ingin menghapus data seperti di bawah ini?
+                    <div class="mb-3">
+                        <label for="formFileLg" class="form-label">Foto</label>
+                        <input type="file" name="foto" id="formFileLg" class="form-control form-control-lg"
+                            accept=".png,.jpg,.jpeg">
+                        <small id="error-foto" class="error-text form-text text-danger"></small>
                     </div>
-                    <table class="table table-sm table-bordered table-striped">
-                        <tr>
-                            <th class="text-right col-3">Kode Level :</th>
-                            <td class="col-9">{{ $level->kode_level }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Nama Level :</th>
-                            <td class="col-9">{{ $level->nama_level }}</td>
-                        </tr>
-                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
     </form>
     <script>
         $(document).ready(function() {
-            $("#form-delete-level").validate({
-                rules: {},
+            $("#form-edit").validate({
+                rules: {
+                    foto: {
+                        required: true,
+                        accept: "png,jpg,jpeg"
+                    },
+                },
                 submitHandler: function(form) {
+                    var formData = new FormData(
+                        form);
                     $.ajax({
                         url: form.action,
                         type: form.method,
-                        data: $(form).serialize(),
+                        data: formData,
+                        processData: false, // setting processData dan contentType ke false, untuk menghandle file 
+                        contentType: false,
                         success: function(response) {
                             if (response.status) {
                                 $('#myModal').modal('hide');
@@ -68,7 +67,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataLevel.ajax.reload();
+                                $(document).reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
