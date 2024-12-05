@@ -20,7 +20,7 @@
         <div id="filter" class="form-horizontal filter-date p-2 border-bottom mb-2">
             <div class="col-md-12">
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter:</label>
+                    <div class="col-1 control-label col-form-label">Filter:</div>
                     <div class="col-3">
                         <select class="form-control" id="id_level" name="id_level" required>
                             <option value="">- Semua -</option>
@@ -178,86 +178,80 @@ data-keyboard="false" data-width="75%" aria-hidden="true"></div>
         });
     }
 
-    var tableUser;
+    var dataUser;
     $(document).ready(function() {
-            tableUser = $('#table_user').DataTable({
-            // serverSide: true, jika ingin menggunakan server side processing
-            processing: true,
-            serverSide: true, 
+        dataUser = $('#table_user').DataTable({
+            // serverSide: true, jika ingin menggunakan server side processing 
+            serverSide: true,
             ajax: {
                 "url": "{{ url('user/list') }}",
                 "dataType": "json",
                 "type": "POST",
-                "data": function (d) {
+                "data": function(d) {
                     d.id_level = $('#id_level').val();
                 }
             },
-            columns: [
-                {
-                    // nomor urut dari laravel datatable addIndexColumn()
-                    data: "DT_RowIndex", 
-                    className: "text-center",
-                    width: "5%",
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: "username", 
-                    className: "",
-                    // orderable: true, jika ingin kolom ini bisa diurutkan
-                    width: "10%",
-                    orderable: true, 
-                    // searchable: true, jika ingin kolom ini bisa dicari
-                    searchable: true
-                },
-                {
-                    data: "nama_user", 
-                    className: "",
-                    width: "25%",
-                    orderable: true, 
-                    searchable: true
-                },
-                {
-                    // mengambil data level hasil dari ORM berelasi
-                    data: "level.nama_level", 
-                    className: "",
-                    width: "14%",
-                    orderable: false, 
-                    searchable: false
-                },
-                {
-                    data: "foto",
-                    className: "",
-                    width: "14%",
-                    orderable: false,
-                    searchable: false,
-                    "render": function(data) {
-                            // Check if data exists
-                            if (data) {
-                                // Construct the image URL using Blade syntax
-                                return '<img src=" {{ asset('data') }} " width="50px"/>';
-                            }
-                            return 'Image Unavailable'; // Return empty if no data
+        columns: [
+            {
+                // nomor urut dari laravel datatable addIndexColumn()
+                data: "DT_RowIndex", 
+                className: "text-center",
+                width: "5%",
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: "username", 
+                className: "",
+                // orderable: true, jika ingin kolom ini bisa diurutkan
+                width: "10%",
+                orderable: true, 
+                // searchable: true, jika ingin kolom ini bisa dicari
+                searchable: true
+            },
+            {
+                data: "nama_user", 
+                className: "",
+                width: "25%",
+                orderable: true, 
+                searchable: true
+            },
+            {
+                // mengambil data level hasil dari ORM berelasi
+                data: "level.nama_level", 
+                className: "",
+                width: "14%",
+                orderable: false, 
+                searchable: false
+            },
+            {
+                data: "foto",
+                className: "",
+                width: "14%",
+                orderable: false,
+                searchable: false,
+                "render": function(data) {
+                    // Check if data exists
+                    if (data) {
+                        // Construct the image URL using Blade syntax
+                        return '<img src=" {{ asset('data') }} " width="50px"/>';
                     }
-                },
-                {
-                    data: "aksi", 
-                    className: "text-center",
-                    width: "14%",
-                    orderable: false, 
-                    searchable: false
+                    return 'Image Unavailable'; // Return empty if no data
+                }
+            },
+            {
+                data: "aksi", 
+                className: "text-center",
+                width: "14%",
+                orderable: false, 
+                searchable: false
                     
-                }
-            ]
-        });
-        $('#table-user_filter input').unbind().bind().on('keyup', function(e) {
-                if (e.keyCode == 13) { // enter key
-                    tableUser.search(this.value).draw();
-                }
-            });
-            $('#id_level').change(function() {
-                tableBarang.draw();
-        });
+            }
+        ]
     });
+    $('#id_level').change(function() {
+            dataUser.ajax.reload(); // Reload DataTable when filter is applied
+        });
+});
 </script>
 @endpush

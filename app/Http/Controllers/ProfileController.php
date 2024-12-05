@@ -12,16 +12,24 @@ class ProfileController extends Controller
     public function index()
     {
         $id = session('id_user');
+
+        print dd($id);
+
         $breadcrumb = (object) [
             'title' => 'Profile',
             'list' => ['Home', 'profile']
         ];
+
         $page = (object) [
             'title' => 'Profile Anda'
         ];
+
         $activeMenu = 'profile'; // set menu yang sedang aktif
+
         $user = UserModel::with('level')->find($id);
+
         $level = LevelModel::all(); // ambil data level untuk filter level
+        
         return view('profile.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'user' => $user,'activeMenu' => $activeMenu]);
     }
     public function show(string $id)
@@ -138,7 +146,7 @@ class ProfileController extends Controller
                     $file = $request->file('foto');
                     $extension = $file->getClientOriginalExtension();
                     $filename = time() . '.' . $extension;
-                    $path = 'image/profile/';
+                    $path = 'images/profile/';
                     $file->move($path, $filename);
                 }
                 $check->update([

@@ -232,7 +232,7 @@ class UserController extends Controller
             $file = $request->file('foto');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $path = 'image/profile/';
+            $path = 'images/profile/';
             $file->move($path, $filename);
         }
 
@@ -300,7 +300,7 @@ class UserController extends Controller
                 $file = $request->file('foto');
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
-                $path = 'image/profile/';
+                $path = 'images/profile/';
                 $file->move($path, $filename);
                 $user->foto = $path . $filename; // Save path to user model
             }

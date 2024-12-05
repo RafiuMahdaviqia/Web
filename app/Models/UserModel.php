@@ -29,8 +29,8 @@ class UserModel extends Authenticatable
         return $this->belongsTo(LevelModel::class, 'id_level', 'id_level');
     }
 
-    protected $hidden = ['password_user'];
-    protected $casts = ['password_user' => 'hashed'];
+    protected $hidden = ['password'];
+    protected $casts = ['password' => 'hashed'];
 
     public function getRoleName(): string{
         return $this->level->nama_level;
