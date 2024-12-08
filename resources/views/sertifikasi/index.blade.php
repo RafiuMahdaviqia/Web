@@ -55,8 +55,39 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                 
+                </div>   
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group row align-items-center">
+                            <label class="col-2 control-label col-form-label">Filter mata kuliah:</label>
+                            <div class="col-3">
+                                <select class="form-control" id="id_matkul" name="id_matkul" required>
+                                    <option value="" style="padding: 5px 10px;">- Semua -</option>
+                                    @foreach ($matkul as $item)
+                                        <option value="{{ $item->id_matkul }}">{{ $item->nama_matkul }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group row align-items-center">
+                            <label class="col-2 control-label col-form-label">Filter bidang minat:</label>
+                            <div class="col-3">
+                                <select class="form-control" id="id_bidang_minat" name="id_bidang_minat" required>
+                                    <option value="" style="padding: 5px 10px;">- Semua -</option>
+                                    @foreach ($bidang_minat as $item)
+                                        <option value="{{ $item->id_bidang_minat }}">{{ $item->bidang_minat }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>                  
 
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -71,6 +102,8 @@
                         <th>No</th>
                         <th>Nama User</th>
                         <th>Nama Vendor</th>
+                        <th>Nama Mata Kuliah</th>
+                        <th>Nama Bidang Minat</th>
                         <th>Nama Sertifikasi</th>
                         <th>Jenis Sertifikasi</th>
                         <th>Tanggal Mulai</th>
@@ -222,6 +255,8 @@
                     "data": function (d) {
                         d.id_vendor = $('#id_vendor').val();
                         d.id_user = $('#id_user').val();
+                        d.id_matkul = $('#id_matkul').val();
+                        d.id_bidang_minat = $('#id_bidang_minat').val();
                     }
                 },
                 columns: [{
@@ -239,6 +274,16 @@
                 }, {
                     // Menampilkan Nama Vendor dari relasi vendor
                     data: "vendor.nama_vendor",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                }, {
+                    data: "matkul.nama_matkul",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                }, {
+                    data: "bidang_minat.bidang_minat",
                     className: "",
                     orderable: true,
                     searchable: true
@@ -277,8 +322,16 @@
                     data: "bukti_sertif",
                     className: "",
                     orderable: true,
-                    searchable: true
-                }, {
+                    searchable: true,
+                    "render": function(data) {
+                        // Cek jika data ada
+                        if (data) {
+                            // Gunakan URL yang berasal dari data
+                            return '<a href="' + data + '" target="_blank">Lihat Bukti</a>';
+                        }
+                        return 'Bukti Tidak Tersedia'; // Jika tidak ada data, tampilkan teks fallback
+                    }
+                },{
                     // Menampilkan Status Sertifikasi
                     data: "status",
                     className: "",
@@ -297,6 +350,12 @@
                 datasertifikasi.ajax.reload();
             });
             $('#id_user').on('change',function(){
+                datasertifikasi.ajax.reload();
+            });
+            $('#id_matkul').on('change',function(){
+                datasertifikasi.ajax.reload();
+            });
+            $('#id_bidang_minat').on('change',function(){
                 datasertifikasi.ajax.reload();
             });
         });

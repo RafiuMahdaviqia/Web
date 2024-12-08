@@ -41,6 +41,14 @@
                             <td class="col-9">{{ $sertifikasi->vendor->nama_vendor }}</td>
                         </tr>
                         <tr>
+                            <th class="text-right col-3">Nama Mata Kuliah :</th>
+                            <td class="col-9">{{ $sertifikasi->matkul->nama_matkul }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Nama Bidang Minat :</th>
+                            <td class="col-9">{{ $sertifikasi->bidang_minat->bidang_minat }}</td>
+                        </tr>
+                        <tr>
                             <th class="text-right col-3">Nama Sertifikasi :</th>
                             <td class="col-9">{{ $sertifikasi->nama_sertif }}</td>
                         </tr>
@@ -61,8 +69,14 @@
                             <td class="col-9">{{ $sertifikasi->jenis_pendanaan_sertif }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Bukti Sertifikasi :</th>
-                            <td class="col-9">{{ $sertifikasi->bukti_sertif }}</td>
+                            <th class="text-right col-3">Tautan Bukti Sertifikasi :</th>
+                            <td>
+                                @if($sertifikasi->bukti_sertif)
+                                    <a href="{{ $sertifikasi->bukti_sertif }}" target="_blank">Lihat Bukti</a>
+                                @else
+                                    Bukti Tidak Tersedia
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Status :</th>

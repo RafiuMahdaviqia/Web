@@ -18,14 +18,39 @@
         @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
+
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group row align-items-center">
+                    <label class="col-2 control-label col-form-label">Filter jenis vendor:</label>
+                    <div class="col-3">
+                        <select class="form-control" id="jenis_vendor" name="jenis_vendor" required style="padding-left: 10px;">
+                            <option value="" style="padding: 5px 10px;">- Semua -</option>
+                            @foreach ($vendor as $item)
+                                <option value="{{ $item->id_vendor }}">{{ $item->jenis_vendor}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         <table class="table table-bordered table-striped table-hover table-sm" id="table_vendor">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Vendor</th>
                     <th>Alamat Vendor</th>
-                    <th>No. Telepon Vendor</th>
                     <th>Jenis Vendor</th>
+                    <th>No. Telepon</th>
+                    <th>Alamat Web</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -199,6 +224,13 @@ data-keyboard="false" data-width="75%" aria-hidden="true"></div>
                     searchable: true
                 },
                 {
+                    data: "jenis_vendor", 
+                    className: "",
+                    width: "14%",
+                    orderable: true, 
+                    searchable: true
+                },
+                {
                     data: "telp_vendor", 
                     className: "",
                     width: "14%",
@@ -206,11 +238,20 @@ data-keyboard="false" data-width="75%" aria-hidden="true"></div>
                     searchable: true
                 },
                 {
-                    data: "jenis_vendor", 
+                    data: "alamat_web",
                     className: "",
                     width: "14%",
-                    orderable: true, 
-                    searchable: true
+                    orderable: true,
+                    searchable: true,
+                    "render": function(data) {
+                        // Cek jika data ada
+                        if (data) {
+                            // Gunakan URL yang berasal dari data
+                            return '<a href="' + data + '" target="_blank">Lihat Web</a>';
+                        }
+                        return 'Link Tidak Tersedia'; // Jika tidak ada data, tampilkan fallback
+                    }
+
                 },
                 {
                     data: "aksi", 

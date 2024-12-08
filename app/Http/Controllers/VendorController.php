@@ -24,14 +24,17 @@ class VendorController extends Controller
 
         $activeMenu = 'vendor'; // set menu yang sedang aktif
 
-        return view('vendor.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        // Ambil semua data vendor dari database
+        $vendor = VendorModel::all();
+
+        return view('vendor.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'vendor' => $vendor]);
     }
 
     // Ambil data vendor dalam bentuk json untuk datatables
     public function list(Request $request)
     {
         // Ambil data vendor
-        $vendor = VendorModel::select('id_vendor', 'nama_vendor', 'alamat_vendor', 'telp_vendor', 'jenis_vendor');
+        $vendor = VendorModel::select('id_vendor', 'nama_vendor', 'alamat_vendor', 'jenis_vendor', 'telp_vendor', 'alamat_web');
 
         // Return data untuk DataTables
         return DataTables::of($vendor)
@@ -76,26 +79,6 @@ class VendorController extends Controller
         ]);
     }
 
-    // Menyimpan data vendor baru
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_vendor' => 'required|string|max:100', // Nama vendor harus diisi, berupa string, dan maksimal 100 karakter
-            'alamat_vendor' => 'required|string|max:255', // Alamat vendor harus diisi, maksimal 255 karakter
-            'telp_vendor' => 'required|string|max:15', // Nomor telepon vendor harus diisi dan maksimal 15 karakter
-            'jenis_vendor' => 'required|string|max:50', // Jenis vendor harus diisi, berupa string, dan maksimal 50 karakter
-        ]);
-
-        VendorModel::create([
-            'nama_vendor' => $request->nama_vendor,
-            'alamat_vendor' => $request->alamat_vendor,
-            'telp_vendor' => $request->telp_vendor,
-            'jenis_vendor' => $request->jenis_vendor,
-        ]);
-
-        return redirect('/vendor')->with('success', 'Data vendor berhasil disimpan');
-    }
-
     // Menampilkan detail vendor
     public function show(string $id)
     {
@@ -134,26 +117,6 @@ class VendorController extends Controller
         return view('vendor.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'vendor' => $vendor, 'activeMenu' => $activeMenu]);
     }
 
-    // Menyimpan perubahan data vendor
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'nama_vendor' => 'required|string|max:100', // Nama vendor harus diisi
-            'alamat_vendor' => 'required|string|max:255', // Alamat vendor harus diisi
-            'telp_vendor' => 'required|string|max:15', // Telepon vendor harus diisi
-            'jenis_vendor' => 'required|string|max:50', // Jenis vendor harus diisi
-        ]);
-
-        VendorModel::find($id)->update([
-            'nama_vendor' => $request->nama_vendor,
-            'alamat_vendor' => $request->alamat_vendor,
-            'telp_vendor' => $request->telp_vendor,
-            'jenis_vendor' => $request->jenis_vendor,
-        ]);
-
-        return redirect('/vendor')->with('success', 'Data vendor berhasil diubah');
-    }
-
     // Menghapus data vendor
     public function destroy(string $id)
     {
@@ -185,8 +148,9 @@ class VendorController extends Controller
             $rules = [
                 'nama_vendor'     => 'required|string|max:100', // Nama vendor harus diisi
                 'alamat_vendor'   => 'required|string|max:100', // Alamat vendor harus diisi
-                'telp_vendor'     => 'nullable|string|max:20', // Telepon vendor bersifat opsional
                 'jenis_vendor'    => 'required|string|max:50', // Jenis vendor harus diisi
+                'telp_vendor'     => 'nullable|string|max:20', // Telepon vendor bersifat opsional
+                'alamat_web'      => 'required|string', // Alamat web harus diisi
             ];
             // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
@@ -222,8 +186,9 @@ class VendorController extends Controller
             $rules = [
                 'nama_vendor'   => 'required|string|max:100', // Nama vendor harus diisi
                 'alamat_vendor' => 'required|string|max:100', // Alamat vendor harus diisi
-                'telp_vendor'   => 'nullable|string|max:20', // Telepon vendor bersifat opsional
                 'jenis_vendor'  => 'required|string|max:50', // Jenis vendor harus diisi
+                'telp_vendor'   => 'nullable|string|max:20', // Telepon vendor bersifat opsional
+                'alamat_web'      => 'required|string', // Alamat web harus diisi
             ];
             // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
@@ -314,8 +279,9 @@ class VendorController extends Controller
                         $insert[] = [
                             'nama_vendor'   => $value['A'], // Kolom A untuk nama vendor
                             'alamat_vendor' => $value['B'], // Kolom B untuk alamat vendor
-                            'telp_vendor'   => $value['C'], // Kolom C untuk telepon vendor
-                            'jenis_vendor'  => $value['D'], // Kolom D untuk jenis vendor
+                            'jenis_vendor'  => $value['C'], // Kolom C untuk jenis vendor
+                            'telp_vendor'   => $value['D'], // Kolom D untuk telepon vendor
+                            'alamat_web' => $value['E'], // Kolom E untuk alamat web
                             'created_at' => now(),
                         ];
                     }
@@ -341,7 +307,7 @@ class VendorController extends Controller
     public function export_excel()
     {
         // ambil data vendor yang akan di export
-        $vendor = VendorModel::select('nama_vendor', 'alamat_vendor', 'telp_vendor', 'jenis_vendor')
+        $vendor = VendorModel::select('nama_vendor', 'alamat_vendor', 'jenis_vendor', 'telp_vendor', 'alamat_web')
             ->orderBy('nama_vendor')
             ->get();
         // load library excel
@@ -350,21 +316,23 @@ class VendorController extends Controller
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'Nama Vendor');
         $sheet->setCellValue('C1', 'Alamat Vendor');
-        $sheet->setCellValue('D1', 'Telepon Vendor');
-        $sheet->setCellValue('E1', 'Jenis Vendor');
-        $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
+        $sheet->setCellValue('D1', 'Jenis Vendor');
+        $sheet->setCellValue('E1', 'Telepon Vendor');
+        $sheet->setCellValue('F1', 'Alamat Web');
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true); // bold header
         $no = 1; // nomor data dimulai dari 1
         $baris = 2; // baris data dimulai dari baris ke 2
         foreach ($vendor as $key => $value) {
             $sheet->setCellValue('A' . $baris, $no);
             $sheet->setCellValue('B' . $baris, $value->nama_vendor);
             $sheet->setCellValue('C' . $baris, $value->alamat_vendor);
-            $sheet->setCellValue('D' . $baris, $value->telp_vendor);
-            $sheet->setCellValue('E' . $baris, $value->jenis_vendor);
+            $sheet->setCellValue('D' . $baris, $value->jenis_vendor);
+            $sheet->setCellValue('E' . $baris, $value->telp_vendor);
+            $sheet->setCellValue('F' . $baris, $value->alamat_web);
             $baris++;
             $no++;
         }
-        foreach (range('A', 'E') as $columnID) {
+        foreach (range('A', 'F') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kolom
         }
         $sheet->setTitle('Data vendor'); // set title sheet
@@ -383,7 +351,7 @@ class VendorController extends Controller
     } // end function export_excel
     public function export_pdf()
     {
-        $vendor = VendorModel::select('nama_vendor', 'alamat_vendor', 'telp_vendor', 'jenis_vendor')
+        $vendor = VendorModel::select('nama_vendor', 'alamat_vendor', 'jenis_vendor', 'telp_vendor', 'alamat_web')
             ->orderBy('nama_vendor')
             ->get();
         // use Barryvdh\DomPDF\Facade\Pdf;

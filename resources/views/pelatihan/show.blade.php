@@ -38,12 +38,20 @@
                         <td>{{ $pelatihan->vendor->nama_vendor }}</td>
                     </tr>
                     <tr>
+                        <th>Nama Mata Kuliah</th>
+                        <td>{{ $pelatihan->matkul->nama_matkul }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nama Bidang Minat</th>
+                        <td>{{ $pelatihan->bidang_minat->bidang_minat }}</td>
+                    </tr>
+                    <tr>
                         <th>Nama Pelatihan</th>
                         <td>{{ $pelatihan->nama_pelatihan }}</td>
                     </tr>
                     <tr>
-                        <th>Level Pelatihan</th>
-                        <td>{{ $pelatihan->level_pelatihan }}</td>
+                        <th>Jenis Pelatihan</th>
+                        <td>{{ $pelatihan->jenis_pelatihan }}</td>
                     </tr>
                     <tr>
                         <th>Tanggal Mulai Pelatihan</th>
@@ -54,9 +62,23 @@
                         <td>{{ $pelatihan->tgl_akhir }}</td>
                     </tr>
                     <tr>
+                        <th>Level Pelatihan</th>
+                        <td>{{ $pelatihan->level_pelatihan }}</td>
+                    </tr>
+                    <tr>
                         <th>Jenis Pendanaan</th>
                         <td>{{ $pelatihan->jenis_pendanaan }}</td>
                     </tr>
+                    <tr>
+                        <th>Tautan Bukti Pelatihan</th>
+                        <td>
+                            @if($pelatihan->bukti_pelatihan)
+                                <a href="{{ $pelatihan->bukti_pelatihan }}" target="_blank">Lihat Bukti</a>
+                            @else
+                                Bukti Tidak Tersedia
+                            @endif
+                        </td>
+                    </tr> 
                     <tr>
                         <th>Status Pelatihan</th>
                         <td>{{ $pelatihan->status }}</td>

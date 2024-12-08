@@ -38,6 +38,14 @@
                         <td>{{ $sertifikasi->vendor->nama_vendor }}</td>
                     </tr>
                     <tr>
+                        <th>Nama Mata Kuliah</th>
+                        <td>{{ $sertifikasi->matkul->nama_matkul }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nama Bidang Minat</th>
+                        <td>{{ $sertifikasi->bidang_minat->bidang_minat }}</td>
+                    </tr>
+                    <tr>
                         <th>Nama Sertifikasi</th>
                         <td>{{ $sertifikasi->nama_sertif }}</td>
                     </tr>
@@ -57,6 +65,16 @@
                         <th>Jenis Pendanaan Sertifikasi</th>
                         <td>{{ $sertifikasi->jenis_pendanaan_sertif }}</td>
                     </tr>
+                    <tr>
+                        <th>Tautan Bukti Sertifikasi</th>
+                        <td>
+                            @if($sertifikasi->bukti_sertif)
+                                <a href="{{ $sertifikasi->bukti_sertif }}" target="_blank">Lihat Bukti</a>
+                            @else
+                                Bukti Tidak Tersedia
+                            @endif
+                        </td>
+                    </tr>                    
                     <tr>
                         <th>Status Sertifikasi</th>
                         <td>{{ $sertifikasi->status }}</td>

@@ -41,8 +41,20 @@
                             <td class="col-9">{{ $pelatihan->vendor->nama_vendor }}</td>
                         </tr>
                         <tr>
+                            <th class="text-right col-3">Nama Mata Kuliah :</th>
+                            <td class="col-9">{{ $pelatihan->matkul->nama_matkul }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Nama Bidang Minat :</th>
+                            <td class="col-9">{{ $pelatihan->bidang_minat->bidang_minat }}</td>
+                        </tr>
+                        <tr>
                             <th class="text-right col-3">Nama Pelatihan :</th>
                             <td class="col-9">{{ $pelatihan->nama_pelatihan }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Jenis Pelatihan :</th>
+                            <td class="col-9">{{ $pelatihan->jenis_pelatihan }}</td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Tanggal Mulai :</th>
@@ -61,8 +73,14 @@
                             <td class="col-9">{{ $pelatihan->jenis_pendanaan }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Bukti pelatihan :</th>
-                            <td class="col-9">{{ $pelatihan->bukti_pelatihan }}</td>
+                            <th class="text-right col-3">Tautan Bukti pelatihan :</th>
+                            <td>
+                                @if($pelatihan->bukti_pelatihan)
+                                    <a href="{{ $pelatihan->bukti_pelatihan }}" target="_blank">Lihat Bukti</a>
+                                @else
+                                    Bukti Tidak Tersedia
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Status :</th>

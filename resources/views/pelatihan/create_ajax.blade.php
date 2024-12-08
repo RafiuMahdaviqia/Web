@@ -30,20 +30,39 @@
                     </select>
                     <small id="error-id_vendor" class="error-text form-text text-danger"></small>
                 </div>
+
+                <div class="form-group">
+                    <label>Nama Mata Kuliah</label>
+                    <select class="form-control" id="id_matkul" name="id_matkul" required>
+                        <option value="">- Pilih Mata Kuliah -</option>
+                        @foreach ($matkul as $a)
+                            <option value="{{ $a->id_matkul }}">{{ $a->nama_matkul }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-id_matkul" class="error-text form-text text-danger"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nama Bidang Minat</label>
+                    <select class="form-control" id="id_bidang_minat" name="id_bidang_minat" required>
+                        <option value="">- Pilih Bidang Minat -</option>
+                        @foreach ($bidang_minat as $a)
+                            <option value="{{ $a->id_bidang_minat }}">{{ $a->bidang_minat }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-id_bidang_minat" class="error-text form-text text-danger"></small>
+                </div>
+
                 <div class="form-group">
                     <label>Nama Pelatihan</label>
                     <input value="" type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control" required>
                     <small id="error-nama_pelatihan" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Level Pelatihan</label>
-                    <select class="form-control" id="level_pelatihan" name="level_pelatihan" required>
-                        <option value="">-- Pilih Level Pelatihan --</option>
-                        <option value="Nasional">Nasional</option>
-                        <option value="Internasional">Internasional</option>
-                    </select>
-                    <small id="error-level_pelatihan" class="error-text form-text text-danger"></small>
-                </div>                
+                    <label>Jenis Pelatihan</label>
+                    <input value="" type="text" name="jenis_pelatihan" id="jenis_pelatihan" class="form-control" required>
+                    <small id="error-jenis_pelatihan" class="error-text form-text text-danger"></small>
+                </div>    
                 <div class="form-group">
                     <label>Tanggal Mulai Pelatihan</label>
                     <input value="" type="date" name="tgl_mulai" id="tgl_mulai" class="form-control" required>
@@ -55,6 +74,15 @@
                     <small id="error-tgl_akhir" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
+                    <label>Level Pelatihan</label>
+                    <select class="form-control" id="level_pelatihan" name="level_pelatihan" required>
+                        <option value="">-- Pilih Level Pelatihan --</option>
+                        <option value="Nasional">Nasional</option>
+                        <option value="Internasional">Internasional</option>
+                    </select>
+                    <small id="error-level_pelatihan" class="error-text form-text text-danger"></small>
+                </div> 
+                <div class="form-group">
                     <label>Jenis Pendanaan</label>
                     <select class="form-control" id="jenis_pendanaan" name="jenis_pendanaan" required>
                         <option value="">-- Pilih Jenis Pendanaan --</option>
@@ -64,11 +92,11 @@
                     <small id="error-jenis_pendanaan" class="error-text form-text text-danger"></small>
                 </div>                
                 <div class="form-group">
-                    <label>Bukti Pelatihan</label>
-                    <input value="" type="file" name="bukti_pelatihan" id="bukti_pelatihan" class="form-control" required>
+                    <label>Tautan Bukti Pelatihan</label>
+                    <input value="" type="text" name="bukti_pelatihan" id="bukti_pelatihan" class="form-control" required>
                     <small id="error-bukti_pelatihan" class="error-text form-text text-danger"></small>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>Status</label>
                     <select name="status" id="status" class="form-control" required>
                         <option value="">-- Pilih Status --</option>
@@ -76,7 +104,7 @@
                         <option value="Selesai">Selesai</option>
                     </select>
                     <small id="error-status" class="error-text form-text text-danger"></small>
-                </div>
+                </div> --}}
                 
             </div>
             <div class="modal-footer">
@@ -98,13 +126,20 @@
                     required: true,
                     number: true
                 },
+                id_matkul: {
+                    required: true,
+                    number: true
+                },
+                id_bidang_minat: {
+                    required: true,
+                    number: true
+                },
                 nama_pelatihan: {
                 required: true,
                 minlength: 3
                 },
-                level_pelatihan: {
-                    required: true,
-                    minlength: 3
+                jenis_pelatihan: {
+                required: true,
                 },
                 tgl_mulai: {
                     required: true,
@@ -114,13 +149,14 @@
                     required: true,
                     date: true
                 },
+                level_pelatihan: {
+                    required: true,
+                },
                 jenis_pendanaan: {
                     required: true,
-                    minlength: 3
                 },
                 bukti_pelatihan: {
-                    required: true,
-                    extension: "pdf|jpg|png"
+                    required: true
                 },
                 status: {
                     required: true

@@ -20,13 +20,24 @@ class VendorModel extends Model
     protected $fillable = [
         'nama_vendor', 
         'alamat_vendor', 
+        'jenis_vendor',
         'telp_vendor',
-        'jenis_vendor'
+        'alamat_web'
     ];
 
-    public function barang():HasMany
+    public function sertifikasi():HasMany
     {
         return $this->hasMany(SertifikasiModel::class, 'id_sertifikasi', 'id_sertifikasi');
+    }
+
+    public function pengajuan_sertifikasi():HasMany
+    {
+        return $this->hasMany(PengajuanSertifikasiModel::class, 'id_pengsertifikasi', 'id_pengsertifikasi');
+    }
+
+    public function pengajuan_pelatihan():HasMany
+    {
+        return $this->hasMany(PengajuanPelatihanModel::class, 'id_pengpelatihan', 'id_pengpelatihan');
     }
 
 }

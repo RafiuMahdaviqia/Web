@@ -30,6 +30,29 @@
                     </select>
                     <small id="error-id_vendor" class="error-text form-text text-danger"></small>
                 </div>
+
+                <div class="form-group">
+                    <label>Nama Mata Kuliah</label>
+                    <select class="form-control" id="id_matkul" name="id_matkul" required>
+                        <option value="">- Pilih Mata Kuliah -</option>
+                        @foreach ($matkul as $a)
+                            <option value="{{ $a->id_matkul }}">{{ $a->nama_matkul }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-id_matkul" class="error-text form-text text-danger"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nama Bidang Minat</label>
+                    <select class="form-control" id="id_bidang_minat" name="id_bidang_minat" required>
+                        <option value="">- Pilih Bidang Minat -</option>
+                        @foreach ($bidang_minat as $a)
+                            <option value="{{ $a->id_bidang_minat }}">{{ $a->bidang_minat }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-id_bidang_minat" class="error-text form-text text-danger"></small>
+                </div>
+
                 <div class="form-group">
                     <label>Nama Sertifikasi</label>
                     <input value="" type="text" name="nama_sertif" id="nama_sertif" class="form-control" required>
@@ -64,11 +87,17 @@
                     <small id="error-jenis_pendanaan_sertif" class="error-text form-text text-danger"></small>
                 </div>                              
                 <div class="form-group">
-                    <label>Bukti Sertifikasi</label>
-                    <input value="" type="file" name="bukti_sertif" id="bukti_sertif" class="form-control" required>
+                    <label>Tautan Bukti Sertifikasi</label>
+                    <input value="" type="text" name="bukti_sertif" id="bukti_sertif" class="form-control" required>
                     <small id="error-bukti_sertif" class="error-text form-text text-danger"></small>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
+                    <label>Bukti Sertifikasi</label>
+                    <input value="" type="file" name="bukti_sertif" id="bukti_sertif" class="form-control" accept=".pdf,.jpg,.png" required>
+                    <small class="form-text text-muted">Pilih file (PDF, JPG, PNG)</small>
+                    <small id="error-bukti_sertif" class="error-text form-text text-danger"></small>
+                </div> --}}
+                {{-- <div class="form-group">
                     <label>Status</label>
                     <select name="status" id="status" class="form-control" required>
                         <option value="">-- Pilih Status --</option>
@@ -76,7 +105,7 @@
                         <option value="Selesai">Selesai</option>
                     </select>
                     <small id="error-status" class="error-text form-text text-danger"></small>
-                </div>
+                </div> --}}
                 
             </div>
             <div class="modal-footer">
@@ -98,13 +127,20 @@
                     required: true,
                     number: true
                 },
+                id_matkul: {
+                    required: true,
+                    number: true
+                },
+                id_bidang_minat: {
+                    required: true,
+                    number: true
+                },
                 nama_sertif: {
                     required: true,
                     minlength: 3
                 },
                 jenis_sertif: {
                     required: true,
-                    minlength: 3
                 },
                 tgl_mulai_sertif: {
                     required: true,
@@ -116,11 +152,9 @@
                 },
                 jenis_pendanaan_sertif: {
                     required: true,
-                    minlength: 3
                 },
                 bukti_sertif: {
-                    required: true,
-                    extension: "pdf|jpg|png"
+                    required: true
                 },
                 status: {
                     required: true

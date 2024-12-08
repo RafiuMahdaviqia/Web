@@ -27,6 +27,62 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
+
+                            <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama User</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_user" name="id_user" required>
+                                        <option value="">- Pilih user -</option>
+                                        @foreach ($user as $item)
+                                            <option {{ $item->id_user == $pelatihan->id_user ? 'selected' : '' }}
+                                                value="{{ $item->id_user }}">{{ $item->nama_user }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_user" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama Vendor</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_vendor" name="id_vendor" required>
+                                        <option value="">- Pilih vendor -</option>
+                                        @foreach ($vendor as $item)
+                                            <option {{ $item->id_vendor == $pelatihan->id_vendor ? 'selected' : '' }}
+                                                value="{{ $item->id_vendor }}">{{ $item->nama_vendor }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_vendor" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama Mata Kuliah</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_matkul" name="id_matkul" required>
+                                        <option value="">- Pilih Mata Kuliah -</option>
+                                        @foreach ($matkul as $item)
+                                            <option {{ $item->id_matkul == $pelatihan->id_matkul ? 'selected' : '' }}
+                                                value="{{ $item->id_matkul }}">{{ $item->nama_matkul }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_matkul" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama Bidang Minat</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_bidang_minat" name="id_bidang_minat" required>
+                                        <option value="">- Pilih Bidang Minat -</option>
+                                        @foreach ($bidang_minat as $item)
+                                            <option {{ $item->id_bidang_minat == $pelatihan->id_bidang_minat ? 'selected' : '' }}
+                                                value="{{ $item->id_bidang_minat }}">{{ $item->bidang_minat }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_bidang_minat" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Nama Pelatihan</label>
                                 <div class="col-10">
@@ -36,16 +92,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-2 control-label col-form-label">Level Pelatihan</label>
+                                <label class="col-2 control-label col-form-label">Jenis Pelatihan</label>
                                 <div class="col-10">
-                                    <select class="form-control" id="level_pelatihan" name="level_pelatihan" required>
-                                        <option value="">- Pilih Level Pelatihan -</option>
-                                        <option value="Nasional">Nasional</option>
-                                        <option value="Internasional">Internasional</option>
-                                    </select>
-                                    <small id="error-level_pelatihan" class="error-text form-text text-danger"></small>
+                                    <input type="text" class="form-control" id="jenis_pelatihan" name="jenis_pelatihan"
+                                        value="{{ $pelatihan->jenis_pelatihan }}" required>
+                                    <small id="error-jenis_pelatihan" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>                            
+                            </div>   
                             <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Tanggal Mulai</label>
                                 <div class="col-10">
@@ -63,24 +116,36 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Level Pelatihan</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="level_pelatihan" name="level_pelatihan" required>
+                                        <option value="">- Pilih Level Pelatihan -</option>
+                                        <option value="Nasional" {{ old('level_pelatihan', $pelatihan->level_pelatihan) == 'Nasional' ? 'selected' : '' }}>Nasional</option>
+                                        <option value="Internasional" {{ old('level_pelatihan', $pelatihan->level_pelatihan) == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+                                    </select>
+                                    <small id="error-level_pelatihan" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>           
+                            <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Jenis Pendanaan</label>
                                 <div class="col-10">
                                     <select class="form-control" id="jenis_pendanaan" name="jenis_pendanaan" required>
                                         <option value="">- Pilih Jenis Pendanaan -</option>
-                                        <option value="Mandiri">Mandiri</option>
-                                        <option value="Eksternal">Eksternal</option>
+                                        <option value="Mandiri" {{ old('jenis_pendanaan', $pelatihan->jenis_pendanaan) == 'Mandiri' ? 'selected' : '' }}>Mandiri</option>
+                                        <option value="Eksternal" {{ old('jenis_pendanaan', $pelatihan->jenis_pendanaan) == 'Eksternal' ? 'selected' : '' }}>Eksternal</option>
                                     </select>
                                     <small id="error-jenis_pendanaan" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="form-group row">
-                                <label class="col-2 control-label col-form-label">Bukti Pelatihan</label>
+                                <label class="col-2 control-label col-form-label"> Tautan Bukti Pelatihan</label>
                                 <div class="col-10">
-                                    <input type="file" class="form-control" id="bukti_pelatihan" name="bukti_pelatihan" accept=".pdf,.jpg,.png" required>
+                                    <input value="{{ $pelatihan->bukti_pelatihan}}" type="text" name="bukti_pelatihan" id="bukti_pelatihan"
+                                    class="form-control" required>
                                     <small id="error-bukti_pelatihan" class="error-text form-text text-danger"></small>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Status</label>
                                 <div class="col-10">
                                     <select class="form-control" id="status" name="status" required>
@@ -90,7 +155,7 @@
                                     </select>
                                     <small id="error-status" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>                        
                     </div>
                     
@@ -106,40 +171,48 @@
                 $("#form-edit").validate({
                     rules: {
                         id_user: {
-                        required: true,
-                        number: true
-                    },
-                    id_vendor: {
-                        required: true,
-                        number: true
-                    },
-                    nama_sertif: {
-                        required: true,
-                        minlength: 3
-                    },
-                    jenis_sertif: {
-                        required: true,
-                        minlength: 3
-                    },
-                    tgl_mulai_sertif: {
-                        required: true,
-                        date: true
-                    },
-                    tgl_akhir_sertif: {
-                        required: true,
-                        date: true
-                    },
-                    jenis_pendanaan_sertif: {
+                            required: true,
+                            number: true
+                        },
+                        id_vendor: {
+                            required: true,
+                            number: true
+                        },
+                        id_matkul: {
+                            required: true,
+                            number: true
+                        },
+                        id_bidang_minat: {
+                            required: true,
+                            number: true
+                        },
+                        nama_pelatihan: {
                         required: true,
                         minlength: 3
-                    },
-                    bukti_sertif: {
+                        },
+                        jenis_pelatihan: {
                         required: true,
-                        extension: "pdf|jpg|png"
-                    },
-                    status: {
-                        required: true
-                    }
+                        },
+                        tgl_mulai: {
+                            required: true,
+                            date: true
+                        },
+                        tgl_akhir: {
+                            required: true,
+                            date: true
+                        },
+                        level_pelatihan: {
+                            required: true,
+                        },
+                        jenis_pendanaan: {
+                            required: true,
+                        },
+                        bukti_pelatihan: {
+                            required: true
+                        },
+                        status: {
+                            required: true
+                        }
                     },
                     submitHandler: function(form) {
                         $.ajax({

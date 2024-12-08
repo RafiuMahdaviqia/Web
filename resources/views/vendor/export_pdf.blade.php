@@ -84,8 +84,9 @@
                     <th class="text-center">No</th>
                     <th>Nama Vendor</th>
                     <th>Alamat Vendor</th>
-                    <th>No. Telepon Vendor</th>
                     <th>Jenis Vendor</th>
+                    <th>No. Telepon</th>
+                    <th>Alamat Web</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,8 +95,9 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $b->nama_vendor }}</td>
                         <td>{{ $b->alamat_vendor }}</td>
-                        <td>{{ $b->telp_vendor }}</td>
                         <td>{{ $b->jenis_vendor }}</td>
+                        <td>{{ $b->telp_vendor }}</td>
+                        <td>{{ $b->alamat_web }}</td>
                     </tr>
                 @endforeach
             </tbody>

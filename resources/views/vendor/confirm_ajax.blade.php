@@ -48,6 +48,16 @@
                             <th class="text-right col-3">No Telepon :</th>
                             <td class="col-9">{{ $vendor->telp_vendor }}</td>
                         </tr>
+                        <tr>
+                            <th class="text-right col-3">Alamat Web :</th>
+                            <td>
+                                @if($vendor->alamat_web)
+                                    <a href="{{ $vendor->alamat_web }}" target="_blank">Lihat Web</a>
+                                @else
+                                    Link Tidak Tersedia
+                                @endif
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="modal-footer">

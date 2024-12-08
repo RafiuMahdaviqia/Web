@@ -19,7 +19,8 @@
             <div class="info-box-content">
                 <span class="info-box-text">Jumlah Dosen Terdaftar</span>
                 <span class="info-box-number" id="jumlahDosen" data-toggle="modal" data-target="#dosenModal" style="cursor: pointer;">20 Dosen</span>
-                <small class="text-muted">Dosen yang terdaftar aktif.</small>
+                {{-- <small class="text-muted">Dosen yang terdaftar aktif.</small> --}}
+                <small class="text-muted">Klik untuk detail</small>
             </div>
         </div>
     </div>

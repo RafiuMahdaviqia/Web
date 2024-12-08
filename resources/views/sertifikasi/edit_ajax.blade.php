@@ -54,6 +54,33 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama Mata Kuliah</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_matkul" name="id_matkul" required>
+                                        <option value="">- Pilih Mata Kuliah -</option>
+                                        @foreach ($matkul as $item)
+                                            <option {{ $item->id_matkul == $sertifikasi->id_matkul ? 'selected' : '' }}
+                                                value="{{ $item->id_matkul }}">{{ $item->nama_matkul }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_matkul" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Nama Bidang Minat</label>
+                                <div class="col-10">
+                                    <select class="form-control" id="id_bidang_minat" name="id_bidang_minat" required>
+                                        <option value="">- Pilih Bidang Minat -</option>
+                                        @foreach ($bidang_minat as $item)
+                                            <option {{ $item->id_bidang_minat == $sertifikasi->id_bidang_minat ? 'selected' : '' }}
+                                                value="{{ $item->id_bidang_minat }}">{{ $item->bidang_minat }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="error-id_bidang_minat" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Nama Sertifikasi</label>
                                 <div class="col-10">
                                     <input type="text" class="form-control" id="nama_sertif" name="nama_sertif"
@@ -66,12 +93,12 @@
                                 <div class="col-10">
                                     <select class="form-control" name="jenis_sertif" id="jenis_sertif" required>
                                         <option value="">- Pilih Jenis Sertifikasi -</option>
-                                        <option value="Profesi">Profesi</option>
-                                        <option value="Keahlian">Keahlian</option>
+                                        <option value="Profesi" {{ old('jenis_sertif', $sertifikasi->jenis_sertif) == 'Profesi' ? 'selected' : '' }}>Profesi</option>
+                                        <option value="Keahlian" {{ old('jenis_sertif', $sertifikasi->jenis_sertif) == 'Keahlian' ? 'selected' : '' }}>Keahlian</option>
                                     </select>
                                     <small id="error-jenis_sertif" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>                                                       
+                            </div>                                                                                  
                             <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Tanggal Mulai</label>
                                 <div class="col-10">
@@ -93,20 +120,36 @@
                                 <div class="col-10">
                                     <select class="form-control" id="jenis_pendanaan_sertif" name="jenis_pendanaan_sertif" required>
                                         <option value="">- Pilih Jenis Pendanaan -</option>
-                                        <option value="Mandiri">Mandiri</option>
-                                        <option value="Eksternal">Eksternal</option>
+                                        <option value="Mandiri" {{ old('jenis_pendanaan_sertif', $sertifikasi->jenis_pendanaan_sertif) == 'Mandiri' ? 'selected' : '' }}>Mandiri</option>
+                                        <option value="Eksternal" {{ old('jenis_pendanaan_sertif', $sertifikasi->jenis_pendanaan_sertif) == 'Eksternal' ? 'selected' : '' }}>Eksternal</option>
                                     </select>
                                     <small id="error-jenis_pendanaan_sertif" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>                                                                                   
+                            </div>                                                                                                          
                             <div class="form-group row">
-                                <label class="col-2 control-label col-form-label">Bukti Sertifikasi</label>
+                                <label class="col-2 control-label col-form-label">Tautan Bukti Sertifikasi</label>
                                 <div class="col-10">
-                                    <input type="file" class="form-control" id="bukti_sertif" name="bukti_sertif" accept=".pdf,.jpg,.png" required>
+                                    <input value="{{ $sertifikasi->bukti_sertif}}" type="text" name="bukti_sertif" id="bukti_sertif"
+                                    class="form-control" required>
                                     <small id="error-bukti_sertif" class="error-text form-text text-danger"></small>
                                 </div>
                             </div>
-                            <div class="form-group row">
+
+
+                            {{-- <div class="form-group row">
+                                <label class="col-2 control-label col-form-label">Bukti Sertifikasi</label>
+                                <div class="col-10">
+                                    @if($sertifikasi->bukti_sertif)
+                                        <a href="{{ asset('image/bukti/' . $sertifikasi->bukti_sertif) }}" target="_blank">Lihat Bukti Sertifikasi</a>
+                                    @else
+                                        <span>Bukti Unavailable</span>
+                                    @endif
+                                    <small id="error-bukti_sertif" class="error-text form-text text-danger"></small>
+                                </div>
+                            </div> --}}
+                            
+
+                            {{-- <div class="form-group row">
                                 <label class="col-2 control-label col-form-label">Status</label>
                                 <div class="col-10">
                                     <select class="form-control" id="status" name="status" required>
@@ -116,7 +159,7 @@
                                     </select>
                                     <small id="error-status" class="error-text form-text text-danger"></small>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>                        
                     </div>
                     
@@ -139,6 +182,14 @@
                         required: true,
                         number: true
                     },
+                    id_matkul: {
+                    required: true,
+                    number: true
+                    },
+                    id_bidang_minat: {
+                        required: true,
+                        number: true
+                    },
                     nama_sertif: {
                         required: true,
                         minlength: 3
@@ -158,8 +209,7 @@
                         required: true,
                     },
                     bukti_sertif: {
-                        required: true,
-                        extension: "pdf|jpg|png"
+                        required: true
                     },
                     status: {
                         required: true

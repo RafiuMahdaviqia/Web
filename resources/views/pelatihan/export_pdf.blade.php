@@ -85,9 +85,10 @@
                     <th>Nama User</th>
                     <th>Nama Vendor</th>
                     <th>Nama Pelatihan</th>
-                    <th>Level Pelatihan</th>
+                    <th>Jenis Pelatihan</th>
                     <th class="text-right">Tanggal Mulai</th>
                     <th class="text-right">Tanggal Akhir</th>
+                    <th>Level Pelatihan</th>
                     <th>Jenis Pendanaan</th>
                     <th>Status</th>
                 </tr>                
@@ -99,9 +100,10 @@
                         <td>{{ $item->user->nama_user }}</td>
                         <td>{{ $item->vendor->nama_vendor }}</td>
                         <td>{{ $item->nama_pelatihan }}</td>
-                        <td>{{ $item->level_pelatihan }}</td>
+                        <td>{{ $item->jenis_pelatihan }}</td>
                         <td class="text-right">{{ $item->tgl_mulai }}</td>
                         <td class="text-right">{{ $item->tgl_akhir }}</td>
+                        <td>{{ $item->level_pelatihan }}</td>
                         <td>{{ $item->jenis_pendanaan }}</td>
                         <td>{{ $item->status }}</td>
                     </tr>
