@@ -117,33 +117,33 @@
     </li>
 
     <!-- Data Manage -->
-    <li class="nav-header blue-header">Data Manage</li>
-    <li class="nav-item has-treeview {{ in_array($activeMenu, ['rekomendasi_program', 'periode']) ? 'menu-open' : '' }}">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-cogs"></i>
-        <p>Data Manage<i class="right fas fa-angle-left"></i></p>
+<li class="nav-header blue-header">Data Manage</li>
+<li class="nav-item has-treeview {{ in_array($activeMenu, ['jenis_pelatihan', 'rekomendasi_program', 'periode']) ? 'menu-open' : '' }}">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-cogs"></i>
+    <p>Data Manage<i class="right fas fa-angle-left"></i></p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/jenis_pelatihan') }}" class="nav-link {{ ($activeMenu == 'jenis_pelatihan') ? 'active' : '' }}">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Jenis Pelatihan</p>
       </a>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="{{ url('/jenis_pelatihan') }}" class="nav-link {{ ($activeMenu == 'jenis_pelatihan') ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Jenis Pelatihan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url('/rekomendasi_program') }}" class="nav-link {{ ($activeMenu == 'rekomendasi_program') ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Rekomendasi Dosen</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url('/periode') }}" class="nav-link {{ ($activeMenu == 'periode') ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Periode Sertifikasi Dosen</p>
-          </a>
-        </li>
-      </ul>
     </li>
+    <li class="nav-item">
+      <a href="{{ url('/rekomendasi_program') }}" class="nav-link {{ ($activeMenu == 'rekomendasi_program') ? 'active' : '' }}">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Rekomendasi Dosen</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('/periode') }}" class="nav-link {{ ($activeMenu == 'periode') ? 'active' : '' }}">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Periode Sertifikasi Dosen</p>
+      </a>
+    </li>
+  </ul>
+</li>
 
     <!-- Data Kompetensi Prodi -->
     <li class="nav-header blue-header">Data Kompetensi Prodi</li>
